@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import FeedsPage from "./pages/FeedsPage";
+import MyPostsPage from "./pages/MyPostsPage";
+import SavedPostsPage from "./pages/SavedPostsPage";
+import Navbar from "./components/Navbar";
+import { useAuth } from "./context/AuthContext";
 
-function App() {
+const App = () => {
+  const { user } = useAuth();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route
+            path="/login"
+            element={!user ? <LoginPage /> : <FeedsPage />}
+          />
+          <Route
+            path="/register"
+            element={!user ? <RegisterPage /> : <FeedsPage />}
+          />
+          <Route path="/feeds" element={<FeedsPage />} />
+          <Route path="/my-posts" element={<MyPostsPage />} />
+          <Route path="/saved-posts" element={<SavedPostsPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
