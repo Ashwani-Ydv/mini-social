@@ -1,4 +1,3 @@
-// src/pages/LoginPage.tsx
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { auth, provider } from "../firebase";

@@ -1,4 +1,3 @@
-// src/pages/RegisterPage.tsx
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { auth, provider } from "../firebase";

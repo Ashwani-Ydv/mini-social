@@ -1,32 +1,41 @@
-// src/components/Navbar.tsx
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { user, signOut } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOut();
-    navigate("/login");
-  };
 
   return (
-    <nav className="w-full bg-gray-800 z-999 fixed p-4 text-white">
+    <nav className="bg-gray-800 p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-bold">Social Media App</h1>
-        <div>
-          {user ? (
-            <div className="flex items-center space-x-4">
-              <p>Welcome, {user.displayName || user.email}</p>
+        <div className="flex items-center space-x-4">
+          {user && (
+            <>
+              <Link to="/feeds" className="hover:underline">
+                Feeds
+              </Link>
+              <Link to="/my-posts" className="hover:underline">
+                My Posts
+              </Link>
+              <Link to="/saved-posts" className="hover:underline">
+                Saved Posts
+              </Link>
+              <Link to="/create-post" className="hover:underline">
+                Create Post
+              </Link>
               <button
-                onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg"
+                onClick={signOut}
+                className="bg-red-500 px-4 py-2 rounded-lg"
               >
                 Logout
               </button>
-            </div>
-          ) : null}
+            </>
+          )}
+          {!user && (
+            <Link to="/login" className="bg-blue-500 px-4 py-2 rounded-lg">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>
